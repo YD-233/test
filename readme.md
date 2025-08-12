@@ -20,7 +20,7 @@ Rshell是一款开源的golang编写的支持多平台的C2框架，旨在帮助
 
 ## 添加listener
 
-目前支持websocker、tcp、kcp、http、oss协议监听：
+目前支持websocket、tcp、kcp、http、oss协议监听：
 
 ![image-20250811115155092](./assets/image-20250811115155092.png)
 
