@@ -74,6 +74,12 @@ Rshell是一款开源的golang编写的支持多平台的C2框架，旨在帮助
 
 客户端开源地址：https://github.com/Rubby2001/Rshell-client
 
+前端开源地址：https://github.com/Rubby2001/Rshell-web
+
+# Star Trending
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Rubby2001/Rshell---A-Cross-Platform-C2&type=Date)](https://star-history.com/#Rubby2001/Rshell---A-Cross-Platform-C2&Date)
+
 # 免责声明
 
 1. 本项目（[项目名称]）仅为网络安全研究、合法授权测试及教育目的而设计开发，旨在帮助安全专业人员提升防御能力、测试系统安全性。
@@ -88,3 +94,4 @@ Rshell是一款开源的golang编写的支持多平台的C2框架，旨在帮助
    - 不会危害关键信息基础设施
 5. 开发者不承诺工具的隐蔽性、稳定性或适用性，不承担因使用本工具导致的任何直接或间接责任。
 6. 下载、使用本项目即表示您已充分阅读并同意本声明所有条款。
+
