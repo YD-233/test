@@ -12,11 +12,11 @@ var Engine *xorm.Engine
 var DatabaseName string = "./database.db"
 
 type Users struct {
-	Username    string
-	Password    string
-	Email       string
-	Phone       string
-	Permissions int
+	Username string
+	Password string
+	//Email       string
+	//Phone       string
+	//Permissions int
 }
 type Clients struct {
 	Uid        string
@@ -81,11 +81,11 @@ func ConnectDateBase() {
 	if !exists {
 		// 如果不存在 admin 用户，插入默认的 admin 用户
 		defaultUser := &Users{
-			Username:    "admin",
-			Password:    "admin123", // 注意: 密码应进行加密处理
-			Email:       "admin@example.com",
-			Phone:       "1234567890",
-			Permissions: 1,
+			Username: "admin",
+			Password: "admin123",
+			//Email:       "admin@example.com",
+			//Phone:       "1234567890",
+			//Permissions: 1,
 		}
 
 		err = InsertData(Engine, defaultUser)

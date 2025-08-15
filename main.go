@@ -69,18 +69,6 @@ func main() {
 	// 修改密码
 	protected.POST("/users/user_setting/ChangePassword", api.ChangePasswordHandler)
 
-	// 获取用户信息
-	protected.GET("/users/getuserinfo", api.GetUserInfoHandler)
-
-	// 获取用户列表
-	protected.GET("/users/getuserinfo/get_user_list", api.GetUserListHandler)
-
-	// 创建用户
-	protected.POST("/users/user_setting/create_user", api.CreateUserHandler)
-
-	// 删除用户
-	protected.POST("/users/user_setting/delete_user", api.DeleteUserHandler)
-
 	protected.GET("/client/clientslist", api.GetClients)
 	protected.POST("/client/shell/sendcommand", api.SendCommands)
 	protected.GET("/client/shell/getshellcontent", api.GetShellContent)
