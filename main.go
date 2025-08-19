@@ -8,13 +8,14 @@ import (
 	"encoding/base64"
 	"flag"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"html/template"
 	"io/fs"
 	"net/http"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 //go:embed dist
@@ -103,12 +104,6 @@ func main() {
 	protected.POST("/webdelivery/close", api.CloseWebDelivery)
 	protected.POST("/webdelivery/open", api.OpenWebDelivery)
 	protected.POST("/webdelivery/delete", api.DeleteWebDelivery)
-
-	//t := r.Group("/tencent")
-	//{
-	//	t.GET("/mcp/pc/pcsearch", communication.Get)
-	//	t.POST("/sensearch/collection/item/check", communication.Post)
-	//}
 
 	fmt.Println("Listening on port ", *bindPort)
 	r.Run("0.0.0.0:" + strconv.Itoa(*bindPort)) // 启动服务

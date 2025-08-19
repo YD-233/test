@@ -2,9 +2,10 @@ package database
 
 import (
 	"fmt"
-	_ "github.com/mattn/go-sqlite3"
 	"log"
 	"reflect"
+
+	_ "github.com/mattn/go-sqlite3"
 	"xorm.io/xorm"
 )
 
@@ -14,9 +15,6 @@ var DatabaseName string = "./database.db"
 type Users struct {
 	Username string
 	Password string
-	//Email       string
-	//Phone       string
-	//Permissions int
 }
 type Clients struct {
 	Uid        string
@@ -78,14 +76,16 @@ func ConnectDateBase() {
 	}
 	var user Users
 	exists, err := Engine.Where("username = ?", "admin").Get(&user)
+	if err != nil {
+		log.Fatalf("检查admin用户是否存在失败: %v", err)
+
+	}
+
 	if !exists {
 		// 如果不存在 admin 用户，插入默认的 admin 用户
 		defaultUser := &Users{
 			Username: "admin",
 			Password: "admin123",
-			//Email:       "admin@example.com",
-			//Phone:       "1234567890",
-			//Permissions: 1,
 		}
 
 		err = InsertData(Engine, defaultUser)
@@ -100,19 +100,19 @@ func InsertData(engine *xorm.Engine, table interface{}) error {
 	// 使用反射获取表的信息
 	valueOfTable := reflect.ValueOf(table)
 	if valueOfTable.Kind() != reflect.Ptr || valueOfTable.Elem().Kind() != reflect.Struct {
-		return fmt.Errorf("table parameter must be a pointer to a struct")
+		return fmt.Errorf("表参数必须是指向结构体的指针")
 	}
 
 	// 同步数据库结构
 	err := engine.Sync2(table)
 	if err != nil {
-		return fmt.Errorf("failed to sync database structure: %v", err)
+		return fmt.Errorf("同步数据库结构失败: %v", err)
 	}
 
 	// 插入数据
 	_, err = engine.Insert(table)
 	if err != nil {
-		return fmt.Errorf("failed to insert data: %v", err)
+		return fmt.Errorf("插入数据失败: %v", err)
 	}
 
 	return nil
@@ -120,14 +120,14 @@ func InsertData(engine *xorm.Engine, table interface{}) error {
 func ExecuteSQL(engine *xorm.Engine, sql string, args ...interface{}) error {
 	_, err := engine.Exec(sql, args)
 	if err != nil {
-		return fmt.Errorf("failed to execute SQL: %v", err)
+		return fmt.Errorf("执行SQL语句失败: %v", err)
 	}
 	return nil
 }
 func QuerySQL(engine *xorm.Engine, sql string, args ...interface{}) ([]map[string]string, error) {
 	results, err := engine.QueryString(sql, args)
 	if err != nil {
-		return nil, fmt.Errorf("failed to query SQL: %v", err)
+		return nil, fmt.Errorf("查询SQL语句失败: %v", err)
 	}
 	return results, nil
 }
