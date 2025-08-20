@@ -5,6 +5,9 @@ var (
 	Username = "admin"
 	Password = "admin123"
 
+	// 服务器配置
+	WebPort = 8089
+
 	// HTTP通信配置
 	Http_get_metadata_prepend = "BDUSS=mVwMHZ3dWNSajdVVXZtdi0yb3J4ZTJrb0NCcU1ObzRac1p6TFc1NUlwUnVpRlJtRVFBQUFBJCQAAAAAAAAAAAEAAAD94hH41~PB-sSkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG77LGZu-yxmS; BDUSS_BFESS=mVwMHZ3dWNSajdVVXZtdi0yb3J4ZTJrb0NCcU1ObzRac1p6TFc1NUlwUnVpRlJtRVFBQUFBJCQAAAAAAAAAAAEAAAD94hH41~PB-sSkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG77LGZu-yxmS;SESSIONID=" // 每个http get 请求发送的数据前添加的字符串
 	Http_get_output_prepend   = "{\"data\":{\"log_id\":\"3796460674\",\"action_rule\":{\"pos_1\":[\""                                                                                                                                                                                                                                                                                                                                                             //  每个GET请求返回的数据在头部添加的字符串

@@ -23,7 +23,6 @@ var embedFS embed.FS
 func main() {
 	utils.InitFunction()
 	gin.SetMode(gin.ReleaseMode)
-	var bindPort = 8089
 
 	database.ConnectDateBase()
 	defer database.Engine.Close()
@@ -57,12 +56,12 @@ func main() {
 
 	// 使用 JWT 中间件保护以下路由
 	protected := r.Group("/api")
+
+	// 反爬虫识别
 	protected.Use(api.AuthMiddleware())
 
 	// 注销
 	protected.POST("/users/logout", api.LogoutHandler)
-
-
 
 	protected.GET("/client/clientslist", api.GetClients)
 	protected.POST("/client/shell/sendcommand", api.SendCommands)
@@ -99,8 +98,8 @@ func main() {
 	protected.POST("/webdelivery/open", api.OpenWebDelivery)
 	protected.POST("/webdelivery/delete", api.DeleteWebDelivery)
 
-	fmt.Println("Listening on port ", bindPort)
-	r.Run("0.0.0.0:" + strconv.Itoa(bindPort)) // 启动服务
+	fmt.Println("Listening on port ", config.WebPort)
+	r.Run("0.0.0.0:" + strconv.Itoa(config.WebPort)) // 启动服务
 }
 func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {

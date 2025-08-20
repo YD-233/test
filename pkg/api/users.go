@@ -4,10 +4,11 @@ import (
 	"BackendTemplate/pkg/config"
 	"crypto/rand"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v5"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 var JwtKey []byte
@@ -79,7 +80,7 @@ func LoginHandler(c *gin.Context) {
 		}
 		c.JSON(http.StatusOK, gin.H{"code": 200, "data": gin.H{
 			"token":       token,
-			"permissions": 1, // 示例：1表示管理员权限
+			"permissions": 1, // 前端屎山，先别动
 			"refresh":     "mock-refresh-token",
 			"username":    loginData.Username,
 		}})
