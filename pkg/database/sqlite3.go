@@ -12,10 +12,7 @@ import (
 var Engine *xorm.Engine
 var DatabaseName string = "./database.db"
 
-type Users struct {
-	Username string
-	Password string
-}
+
 type Clients struct {
 	Uid        string
 	FirstStart string
@@ -70,29 +67,11 @@ func ConnectDateBase() {
 	if err != nil {
 		log.Fatalf("连接sqlite3数据库失败: %v", err)
 	}
-	err = Engine.Sync2(new(Users), new(Clients), new(Notes), new(Shell), new(Downloads), new(Listener), new(WebDelivery))
+	err = Engine.Sync2(new(Clients), new(Notes), new(Shell), new(Downloads), new(Listener), new(WebDelivery))
 	if err != nil {
 		log.Fatalf("初始化数据库失败: %v", err)
 	}
-	var user Users
-	exists, err := Engine.Where("username = ?", "admin").Get(&user)
-	if err != nil {
-		log.Fatalf("检查admin用户是否存在失败: %v", err)
 
-	}
-
-	if !exists {
-		// 如果不存在 admin 用户，插入默认的 admin 用户
-		defaultUser := &Users{
-			Username: "admin",
-			Password: "admin123",
-		}
-
-		err = InsertData(Engine, defaultUser)
-		if err != nil {
-			log.Fatalf("插入默认 admin 用户失败: %v", err)
-		}
-	}
 }
 
 // InsertData 函数用于插入任意表的数据

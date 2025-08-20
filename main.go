@@ -2,6 +2,7 @@ package main
 
 import (
 	"BackendTemplate/pkg/api"
+	"BackendTemplate/pkg/config"
 	"BackendTemplate/pkg/database"
 	"BackendTemplate/pkg/utils"
 	"embed"
@@ -61,8 +62,7 @@ func main() {
 	// 注销
 	protected.POST("/users/logout", api.LogoutHandler)
 
-	// 修改密码
-	protected.POST("/users/user_setting/ChangePassword", api.ChangePasswordHandler)
+
 
 	protected.GET("/client/clientslist", api.GetClients)
 	protected.POST("/client/shell/sendcommand", api.SendCommands)
@@ -147,9 +147,8 @@ func authMiddleware() gin.HandlerFunc {
 		}
 		user, pass := credParts[0], credParts[1]
 
-		var user_pass database.Users
-		database.Engine.Where("username = ?", user).Get(&user_pass)
-		if user_pass.Password != pass || user_pass.Password == "" {
+		// 使用配置文件验证用户名和密码
+		if user != config.Username || pass != config.Password {
 			c.Header("WWW-Authenticate", `Basic realm="Restricted"`)
 			c.AbortWithStatus(401)
 			return
