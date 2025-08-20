@@ -3,11 +3,12 @@ package oss
 import (
 	"BackendTemplate/pkg/encrypt"
 	"fmt"
-	"github.com/aliyun/aliyun-oss-go-sdk/oss"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
 
 type Client struct {
@@ -61,6 +62,7 @@ func List(c *Client) []oss.ObjectProperties {
 }
 func Send(c *Client, name string, content []byte) {
 	encodeData, err := encrypt.EncodeBase64(content)
+
 	// 1.通过字符串上传对象
 	f := strings.NewReader(string(encodeData))
 	// var err error
@@ -80,7 +82,7 @@ func Get(c *Client, name string) []byte {
 	// 数据读取完成后，获取的流必须关闭，否则会造成连接泄漏，导致请求无连接可用，程序无法正常工作。
 	defer body.Close()
 	// println(body)
-	data, err := ioutil.ReadAll(body)
+	data, err := io.ReadAll(body)
 	if err != nil {
 		fmt.Println("Error:", err)
 		os.Exit(-1)

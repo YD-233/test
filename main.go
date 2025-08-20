@@ -6,12 +6,10 @@ import (
 	"BackendTemplate/pkg/utils"
 	"embed"
 	"encoding/base64"
-	"flag"
 	"fmt"
 	"html/template"
 	"io/fs"
 	"net/http"
-	"os"
 	"strconv"
 	"strings"
 
@@ -24,12 +22,8 @@ var embedFS embed.FS
 func main() {
 	utils.InitFunction()
 	gin.SetMode(gin.ReleaseMode)
-	var bindPort = flag.Int("p", 8089, "Specify alternate port")
-	flag.Parse()
-	if *bindPort > 65535 || *bindPort < 0 {
-		flag.Usage()
-		os.Exit(0)
-	}
+	var bindPort = 8089
+
 	database.ConnectDateBase()
 	defer database.Engine.Close()
 
@@ -105,8 +99,8 @@ func main() {
 	protected.POST("/webdelivery/open", api.OpenWebDelivery)
 	protected.POST("/webdelivery/delete", api.DeleteWebDelivery)
 
-	fmt.Println("Listening on port ", *bindPort)
-	r.Run("0.0.0.0:" + strconv.Itoa(*bindPort)) // 启动服务
+	fmt.Println("Listening on port ", bindPort)
+	r.Run("0.0.0.0:" + strconv.Itoa(bindPort)) // 启动服务
 }
 func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {

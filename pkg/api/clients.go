@@ -7,14 +7,16 @@ import (
 	"BackendTemplate/pkg/utils"
 	"context"
 	"encoding/binary"
-	"github.com/gin-gonic/gin"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
+
 	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetClients(c *gin.Context) {
@@ -223,7 +225,7 @@ func FileUpload(c *gin.Context) {
 	defer src.Close()
 
 	// 读取文件内容到字节数组
-	fileBytes, err := ioutil.ReadAll(src)
+	fileBytes, err := io.ReadAll(src)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to read file"})
 		return

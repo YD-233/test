@@ -3,11 +3,11 @@ package qqwry
 import (
 	_ "embed"
 	"fmt"
-	"github.com/lionsoul2014/ip2region/binding/golang/xdb"
-	"io/ioutil"
 	"net"
 	"os"
 	"strings"
+
+	"github.com/lionsoul2014/ip2region/binding/golang/xdb"
 )
 
 //go:embed ip2region.xdb
@@ -15,7 +15,7 @@ var ipData []byte
 
 func initXDBSearcher() (*xdb.Searcher, error) {
 	// 将嵌入的 XDB 数据写入临时文件
-	tmpfile, err := ioutil.TempFile("", "ip2region.xdb")
+	tmpfile, err := os.CreateTemp("", "ip2region.xdb")
 	if err != nil {
 		return nil, err
 	}
@@ -66,14 +66,4 @@ func GetLocationByIP(ip string) (string, error) {
 	}
 
 	return region, nil
-}
-
-func main() {
-	ip := "1.2.3.4"
-	location, err := GetLocationByIP(ip)
-	if err != nil {
-		fmt.Println("Error:", err)
-		return
-	}
-	fmt.Printf("IP: %s, Location: %s\n", ip, location)
 }
